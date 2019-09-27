@@ -1,0 +1,23 @@
+= Humongous allocator
+
+This is a sample application that continuously creates humongous objects.
+Its creates a few hundreds MB of short lived objects, and then a humongous object (a `long` array).
+
+== Build
+
+[source]
+----
+mvn compile
+----
+
+== Run
+
+The `-XX:G1HeapRegionSize=8388608` parameter can be specified to tweak the humongous object size.
+The app uses it even if a different GC than G1 is selected.
+If not specified, `8388608` is used.
+
+[source]
+----
+java -Xms16G -Xmx16G -XX:+UseG1GC -XX:G1HeapRegionSize=8388608 -cp target/classes/ fr.pingtimeout.HumongousAllocator
+----
+
