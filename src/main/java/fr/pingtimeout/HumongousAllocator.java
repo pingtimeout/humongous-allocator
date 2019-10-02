@@ -17,7 +17,7 @@ import static java.util.stream.Collectors.toList;
 public class HumongousAllocator
 {
     private static final int HUMONGOUS_LONG_ARRAY_SIZE = 8388608;
-    private static final int NUMBER_OF_THREADS = 8;
+    private static final int NUMBER_OF_THREADS = Runtime.getRuntime().availableProcessors();
     private static final int CACHED_OBJECTS_PER_THREAD = 100_000;
 
     public static void main(String[] args) throws IOException, InterruptedException
