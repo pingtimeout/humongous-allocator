@@ -24,9 +24,17 @@ public class HumongousAllocator
     {
         System.out.printf("# Heap size: %d GB%n", Runtime.getRuntime().totalMemory() / 1000 / 1000 / 1000);
         System.out.printf("# Long array of %d elements should be a humongous object%n", HUMONGOUS_LONG_ARRAY_SIZE);
-        System.out.println("# Press ENTER to start the test...");
-        System.in.read();
+        for (int i = 0; i < 2; i++)
+        {
+            System.out.println("# Press ENTER to start run #" + i + "...");
+            System.in.read();
+            doRun();
+            System.out.println("# Finished run #" + i);
+        }
+    }
 
+    private static void doRun() throws InterruptedException
+    {
         CountDownLatch endSignal = new CountDownLatch(NUMBER_OF_THREADS);
         List<Allocator> allocators = IntStream.range(0, NUMBER_OF_THREADS)
             .mapToObj(x -> new Allocator(HUMONGOUS_LONG_ARRAY_SIZE, CACHED_OBJECTS_PER_THREAD, endSignal))
